@@ -24,10 +24,9 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $product = product::find($id);
-        Cart::add($product->id,$product->product_name,1,$product->product_price);
+        
     }
 
     /**
@@ -49,7 +48,11 @@ class CartController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = product::find($id);
+        Cart::add($product->id,$product->product_name,1,$product->product_price);
+        $cart_content = Cart::content();
+
+        return view('cart/index')->with('cart_content', $cart_content);
     }
 
     /**
@@ -60,7 +63,7 @@ class CartController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

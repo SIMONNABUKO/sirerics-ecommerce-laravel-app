@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //import schema
         Schema::defaultStringLength('191');
-        $categories = Category::orderBy('updated_at', 'desc')->paginate(6);
+        $categories = Category::orderBy('updated_at', 'desc')->paginate(8);
         View::share('categories', $categories);
         //share product data with all views
         $products = Product::orderBy('updated_at', 'desc')->paginate(10);
@@ -39,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
 
         $featured_products = Product::orderBy('updated_at', 'desc')->take(4)->get();
         View::share('featured_products', $featured_products);
+
+
+
 
 
 

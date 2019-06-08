@@ -58,7 +58,7 @@
                         </ul>
                     </li> --}}
                     <li><a href="/admin/product/index">Products</a></li>
-                    <li><a href="/admin/product/index">Shopping Cart <i class=" shop fa fa-shopping-cart"><span style="background-color:#eee; color:red" class="badge background-light">1</span></i></a></li>
+                <li><a href="{{url('cart/index')}}">Shopping Cart <i class=" shop fa fa-shopping-cart"><span style="background-color:#eee; color:red" class="badge background-light">{{Cart::count()}}</span></i></a></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">User Management</a>
                         <ul class="dropdown-menu">
                                 @if (Route::has('login'))

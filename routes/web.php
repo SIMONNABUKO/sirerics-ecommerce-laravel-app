@@ -22,6 +22,7 @@ Route::get('admin/category/show/{id}', 'CategoryController@show');
 Route::get('admin/category/edit/{id}', 'CategoryController@edit');
 Route::patch('admin/category/edit/{id}', 'CategoryController@update');
 Route::delete('admin/category/delete/{id}', 'CategoryController@destroy');
+Route::get('/category/products/{id}', 'CategoryController@display');
 
 //Product Model Routes
 Route::get('/admin/product/index', 'ProductController@index');
@@ -32,7 +33,9 @@ Route::get('admin/product/edit/{id}', 'ProductController@edit');
 Route::patch('admin/product/edit/{id}', 'ProductController@update');
 Route::delete('admin/product/delete/{id}', 'ProductController@destroy');
 //Cart controller routes
-Route::resource('/cart', 'CartController');
+Route::get('cart/edit/{id}', 'CartController@edit');
+Route::get('cart/index', 'CartController@index');
+Route::get('cart/show/{id}', 'CartController@show');
 
 
 

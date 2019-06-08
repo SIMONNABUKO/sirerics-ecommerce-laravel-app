@@ -2589,6 +2589,53 @@ a.btn.btn-wide {
     text-shadow: 1px 1px 1px #ccc;
     font-size: 2em;
 }
+.btn-success{
+	background-color: #16a637 !important;
+	color: #fff !important;
+}
+.btn-primary{
+	background-color: #16a637 !important;
+	color: #fff !important;
+}
+
+
+
+#owl-demo .item{
+	background: #16a637;
+	padding: 30px 0px;
+	margin: 10px;
+	color: #FFF;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: center;
+  }
+  /*medium+ screen sizes*/
+@media (min-width:992px) {
+    .desktop-only {
+        display:block !important;
+    }
+}
+ 
+/*small screen sizes*/
+@media (max-width: 991px) {
+    .mobile-only {
+        display:block !important;
+    }
+ 
+    .desktop-only {
+        display:none !important;
+    }
+}
+.list-group a{
+	color:#16a637;
+}
+.badge {
+	color:#fff;
+	background-color: #16a637;
+}
+
+
 
 
 

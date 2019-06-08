@@ -15,61 +15,14 @@
 				{{-- 	Slider included here from includes/slider.blade.php --}}
 				<!-- start slider -->
 				@include('includes/slider')
-				<!-- start slider -->
-			<section class="callation">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							{{-- Navbar to show items --}}
-							<!-- Nav tabs -->
-				<ul class="nav nav-tabs" id="navId">
-					<li class="nav-item">
-						<a href="#tab1Id" class="nav-link active">Active</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#tab2Id">Action</a>
-							<a class="dropdown-item" href="#tab3Id">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#tab4Id">Action</a>
-						</div>
-					</li>
-					<li class="nav-item">
-						<a href="#tab5Id" class="nav-link">Another link</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link disabled">Disabled</a>
-					</li>
-				</ul>
-				
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
-					<div class="tab-pane fade" id="tab2Id" role="tabpanel">This is the first tab</div>
-					<div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-					<div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-					<div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
-				</div>
-				
-				<script>
-					$('#navId a').click(e => {
-						e.preventDefault();
-						$(this).tab('show');
-					});
-				</script>
-							{{-- End of Navbar --}}
-						</div>
-					</div>
-				</div>
-			</section>
+
 			<section class="callaction">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8">
 							<div class="cta-text">
 								<h2>Have a product to sell? Reach<span>Thousands</span> of our daily visitors</h2>
-								<p class="h4">Our site is among the highly visited sites in Kenya due to the highest 
+								<p class="h4">Our site is among the most visited sites in Kenya due to the highest 
 									level of proffessionalism
 									we operate under. You can easily sell our product 
 									to thousands of people visiting 
@@ -79,7 +32,7 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="cta-btn">
-								<a href="#" class="btn btn-theme btn-lg">Begin selling <i class="fa fa-angle-right"></i></a>
+								<a href="#" class="btn btn-theme btn-lg">Start selling <i class="fa fa-angle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -92,8 +45,65 @@
 		<!-- Portfolio Projects -->
 		<div class="container marginbot50">
 				<div class="row">
+					{{-- Categories Division --}}
+					<div class="col-lg-12 desktop-only" >
+							<div style="background-color:#131d4c; color:white" class="col-lg-12">
+									<p style="color:white" class="h5  text-center">Featured Categories</p>
+							</div>
+		
+							<div id="filters-container" class="cbp-l-filters-button">
+								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">All
+									<div class="cbp-filter-counter"></div>
+								</div>
+								@foreach ($categories as $category)
+								<div data-filter=".identity" class="cbp-filter-item">{{$category->category_name}}
+										<div class="cbp-filter-counter"></div>
+									</div>	
+								@endforeach
+								
+	
+							</div>
+							
+		
+							<div id="" class="row">
+								<ul>
+									
+									
+									<div id="owl-demo" class="owl-carousel ">
+											@if(count($categories)>0)
+											@foreach ($categories as $category)
+										<div class="item">
+										<div class="card">
+											<div class="card-header">
+												{{$category->category_name}}
+											</div>
+											<img class="card-img-top" src="{{asset('storage/images/category_images/'.$category->category_image)}}" alt="">
+											<div class="card-body">
+											  <h5 class="card-title">{{$category->products->count()}}</h5>
+											  <p class="card-text">{{Str::limit($category->category_description,'20')}}</p>
+											<a href="{{url('/category/products', $category->id)}}" class="btn btn-default" >View details</a>
+											</div>
+										  </div>
+										</div>
+									
+									@endforeach
+									@endif
+								</div>
+	
+								</ul>
+							</div>
+							<br>
+							
+									
+							<hr>
+						</div>
+						
+					{{-- End of Categories Division --}}
 					<div class="col-lg-12">
-						<h4 class="heading">Featured Products</h4>
+						<div class="container">
+								<h5 class="heading">Featured Products</h4>
+						</div>
+						
 	
 						<div id="filters-container" class="cbp-l-filters-button">
 							<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">All
@@ -109,30 +119,26 @@
 						</div>
 	
 	
-						<div id="grid-container" class="cbp-l-grid-projects">
+						<div id="" class="row">
 							<ul>
 								@if(count($featured_products)>0)
 								@foreach ($featured_products as $featured)
-									
 								
-								<li class="cbp-item graphic col-sm-6 col-xs-12">
-									<div class="cbp-caption">
-										<div class="cbp-caption-defaultWrap">
-											<img src="{{asset('storage/images/product_images/'.$featured->product_image)}}" alt="" />
+								<div class=" col-sm-6 col-xs-12 clear-fix">
+
+									<div class="card">
+										<div class="card-header">
+											{{$featured->product_name}}
 										</div>
-										<div class="cbp-caption-activeWrap">
-											<div class="cbp-l-caption-alignCenter">
-												<div class="cbp-l-caption-body">
-													<a href="/img/works/1big.jpg" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Dashboard<br>by Paul Flavius Nechita">Add to cart</a>
-												</div>
-											</div>
+										<img class="card-img-top" src="{{asset('storage/images/product_images/'.$featured->product_image)}}" alt="">
+										<div class="card-body">
+										  <h5 class="card-title">{{$featured->product_price}}</h5>
+										  <p class="card-text">{{$featured->product_description}}</p>
+										<a href="{{url('cart/show', $featured->id)}}" class="btn btn-success">Add to cart</a>
+										<a href="{{url('admin/product/show', $featured->id)}}" class="btn btn-default" >View details</a>
 										</div>
-									</div>
-								<div class="cbp-l-grid-projects-title">{{$featured->product_name}}</div>
-								
-								<div class="cbp-l-grid-projects-desc"><div style="background-color:#fd0000; color:white" class="badge badge-danger">Kshs.{{$featured->product_price}}</div></div>
-								<div class="cbp-l-grid-projects-desc">{{$featured->product_description}}</div>
-								</li>
+									  </div>
+								</div>
 								@endforeach
 								@endif
 
@@ -140,9 +146,9 @@
 						</div>
 						<br>
 						<div class="cbp-l-loadMore-button">
-							<a href="/admin/product/index" class="btn">LOAD MORE</a>
+							<a href="/admin/product/index" class="btn">See All Products</a>
 						</div>
-	
+	<hr>
 					</div>
 				</div>
 			</div>
@@ -247,20 +253,6 @@
 					</div>
 				</div>
 				
-{{-- 	
-				<!-- divider -->
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="solidline">
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- end divider --> --}}
-				<!-- clients we work with was here but removed for the code organization-->
-
-	
 			</section>
 
 

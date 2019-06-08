@@ -106,6 +106,17 @@ class CategoryController extends Controller
 
     }
 
+    public function display($id)
+    {
+        //find category id
+        $products = Category::find($id)->products;
+        $category = Category::find($id);
+        return view('products_categorywise',compact(['category','products']));
+
+    }
+    
+    
+
     /**
      * Show the form for editing the specified resource.
      *

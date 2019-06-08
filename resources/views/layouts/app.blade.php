@@ -10,6 +10,8 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="{{asset('plugins/flexslider/flexslider.css')}}" rel="stylesheet" media="screen" />
 	<link href="{{asset('css/cubeportfolio.min.css')}}" rel="stylesheet" />
+	<link rel="stylesheet" href="{{asset('OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{('OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css')}}">
 	<link href="{{asset('css/style.css')}}" rel="stylesheet" />
 	{{-- ADMINLTE CSS AND JS FILES --}}
 	
@@ -27,12 +29,15 @@
 </head>
 
 <body>
-		<div id="wrapper">
+		<div id="wrapper" >
 			<!-- start header -->
 			@include('includes/navbar')
 		<!-- end header -->
-		<div style="background-color:white;" class="container-fluid">
-			@yield('content')
+		<div style="background-color:#fff;" class="container-fluid">
+			<div class="container" style="background-color:#fff;">
+				@yield('content')
+			</div>
+			
 		</div>
 			
 		
@@ -59,10 +64,10 @@
 							<div class="widget">
 								<h4>Information</h4>
 								<ul class="link-list">
-									<li><a href="#">Press release</a></li>
+									
 									<li><a href="#">Terms and conditions</a></li>
 									<li><a href="#">Privacy policy</a></li>
-									<li><a href="#">Career center</a></li>
+									
 									<li><a href="#">Contact us</a></li>
 								</ul>
 							</div>
@@ -72,10 +77,10 @@
 							<div class="widget">
 								<h4>Pages</h4>
 								<ul class="link-list">
-									<li><a href="#">Press release</a></li>
+									
 									<li><a href="#">Terms and conditions</a></li>
 									<li><a href="#">Privacy policy</a></li>
-									<li><a href="#">Career center</a></li>
+									
 									<li><a href="#">Contact us</a></li>
 								</ul>
 							</div>
@@ -99,15 +104,10 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="copyright">
-									<p>&copy; Sailor Theme - All Right Reserved</p>
+									<p>&copy; SirErics - All Right Reserved</p>
 									<div class="credits">
-										<!--
-						All the links in the footer should remain intact. 
-						You can delete the links only if you purchased the pro version.
-						Licensing information: https://bootstrapmade.com/license/
-						Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Sailor
-					  -->
-										Designed by <a href="">BootstrapMade</a>
+										
+										
 									</div>
 								</div>
 							</div>
@@ -143,6 +143,30 @@
 			<script src="{{asset('js/google-code-prettify/prettify.js')}}"></script>
 			<script src="{{asset('js/animate.js')}}"></script>
 			<script src="{{asset('js/custom.js')}}"></script>
+			<script src="{{('OwlCarousel2-2.3.4/dist/owl.carousel.min.js')}}"></script>	
+
+			<script>
+				
+
+				
+
+				$(document).ready(function() {
+     
+	 $("#owl-demo").owlCarousel({
+		 items : 5, //10 items above 1000px browser width
+		 itemsDesktop : [1000,5], //5 items between 1000px and 901px
+		 itemsDesktopSmall : [900,3], // betweem 900px and 601px
+		 itemsTablet: [600,2], //2 items between 600 and 0;
+		 itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+	 });
+	
+   });
+
+
+
+
+			</script>
+			
 
 			
 
