@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
@@ -16,7 +16,8 @@ class CartController extends Controller
     public function index()
     {
         $cart_content = Cart::content();
-        return view('cart.index')->with('cart_content', $cart_content); 
+        $total = Cart::subtotal();
+        return view('cart.index', compact('total', 'cart_content')); 
     }
 
     /**
@@ -24,9 +25,12 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add($id)
     {
-        
+        $product = Product::find($id);
+        Cart::add($product->id,$product->product_name,1,$product->product_price);
+        return redirect()->route('cart.index');
+
     }
 
     /**
@@ -61,9 +65,10 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function remove($id)
     {
-        
+        Cart::remove($id);
+        return redirect()->route('cart.index');   
     }
 
     /**

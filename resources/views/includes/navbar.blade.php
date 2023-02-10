@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <ul class="topleft-info">
-                        <li><i class="fa fa-phone"></i> +254 705052213</li>
+                        <li><i class="fa fa-phone"></i> +254726582228</li>
                     </ul>
                 </div>
                 <div class="col-md-4 col-sm-12 col-xs-12">

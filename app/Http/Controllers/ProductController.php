@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Support\Facades\Log;
 use Session;
 use Image;
+use Throwable;
 
 class ProductController extends Controller
 {
@@ -38,63 +40,71 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-         //validation
-         $this->validate($request, [
-            'product_name'=>'required',
-            'product_description'=>'required',
-            'product_image'=>'image|nullable|max:2048',
-            'product_price'=>'required',
-            'category_id'=>'required'
-    ]);
-// Upload file Method 1
-        $uploadedFile = $request->file('product_image');
-   
-      //Display File Name
-      $file_name = $uploadedFile->getClientOriginalName();
-   
-      //Display File Extension
-      $file_extension= $uploadedFile->getClientOriginalExtension();
-  
-      //Display File Size
-      $file_size= $uploadedFile->getSize();
-   
-   
-      //Move Uploaded File
-      $destinationPath = 'storage/images/product_images';
-      
-      $uploadedFileName= $file_name.$file_size.'.'.$file_extension;
-      $uploadedFile->move($destinationPath, $uploadedFileName);
-      //Resize image here
-    // open an image file
-$resizedImg = Image::make('storage/images/product_images/'.$uploadedFileName);
-// now you are able to resize the instance
-$resizedImg->resize(200, 200);
-//open logo image to resize
-$pathToLogoToResize= Image::make('storage/images/product_images/logo.png');
-//Resize the logo image
-$pathToLogoToResize->resize(50, 50);
-//save the logo img
-$pathToLogoToResize->save('storage/images/product_images/logo.jpg');
-// and insert a watermark for example
-$resizedImg->insert('storage/images/product_images/logo.jpg');
-// finally we save the image as a new file
-$resizedImg->save('storage/images/product_images/'.$uploadedFileName);
-    
-        //End of upload file 
+        try {
+            //validation
+           
+           $validated_data = $this->validate($request, [
+                'product_name' => 'required',
+                'product_description' => 'required',
+                'product_image' => 'file',
+                'product_price' => 'required',
+                'category_id' => 'required'
+            ]);
+            // Upload file Method 1
+            $uploadedFile = $request->file('product_image');
 
-        //creating a new post
-        $product = new Product;
-        $product->product_name= $request->input('product_name');
-        $product->product_description= $request->input('product_description');
-        $product->product_price= $request->input('product_price');
-        $product->product_quantity= $request->input('product_quantity');
-        $product->product_location= $request->input('product_location');
-        $product->user_id= $request->input('user_id');
-        $product->category_id= $request->input('category_id');
-        $product->product_image= $uploadedFileName;
-        $product->save();
-        Session::flash('success', 'The product has been added successfully');
-        return redirect('/admin/routes');
+            //Display File Name
+            $file_name = $uploadedFile->getClientOriginalName();
+
+            //Display File Extension
+            $file_extension = $uploadedFile->getClientOriginalExtension();
+
+            //Display File Size
+            $file_size = $uploadedFile->getSize();
+
+
+            //Move Uploaded File
+            $destinationPath = 'storage/images/product_images';
+
+            $uploadedFileName = $file_name . $file_size . '.' . $file_extension;
+            $uploadedFile->move($destinationPath, $uploadedFileName);
+            //Resize image here
+            // open an image file
+            $resizedImg = Image::make('storage/images/product_images/' . $uploadedFileName);
+            // now you are able to resize the instance
+            $resizedImg->resize(200, 200);
+            //open logo image to resize
+            $pathToLogoToResize = Image::make('storage/images/product_images/logo.png');
+            //Resize the logo image
+            $pathToLogoToResize->resize(50, 50);
+            //save the logo img
+            $pathToLogoToResize->save('storage/images/product_images/logo.jpg');
+            // and insert a watermark for example
+            $resizedImg->insert('storage/images/product_images/logo.jpg');
+            // finally we save the image as a new file
+            $resizedImg->save('storage/images/product_images/' . $uploadedFileName);
+
+            //End of upload file 
+
+            //creating a new post
+            $product = new Product;
+            $product->product_name = $request->input('product_name');
+            $product->product_description = $request->input('product_description');
+            $product->product_price = $request->input('product_price');
+            $product->product_quantity = $request->input('product_quantity');
+            $product->product_location = $request->input('product_location');
+            $product->user_id = $request->input('user_id');
+            $product->category_id = $request->input('category_id');
+            $product->product_image = $uploadedFileName;
+            $product->save();
+            Session::flash('success', 'The product has been added successfully');
+            return redirect('/admin/routes');
+        } catch (Throwable $th) {
+            Log::error("Something went wrong!");
+            Log::error($th->getMessage());
+            throw $th;
+            return redirect('/admin/routes');
+        }
     }
 
     /**
@@ -107,7 +117,6 @@ $resizedImg->save('storage/images/product_images/'.$uploadedFileName);
     {
         $product = Product::find($id);
         return view('single_product')->with('product', $product);
-
     }
 
     /**
@@ -131,59 +140,59 @@ $resizedImg->save('storage/images/product_images/'.$uploadedFileName);
      */
     public function update(Request $request, $id)
     {
-         //validation
-         $this->validate($request, [
-            'product_name'=>'required',
-            'product_description'=>'required',
-            'product_image'=>'image|nullable|max:2048',
-            'product_price'=>'required',
-            'category_id'=>'required'
-    ]);
-// Upload file Method 1
+        //validation
+        $this->validate($request, [
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'product_image' => 'image|nullable|max:2048',
+            'product_price' => 'required',
+            'category_id' => 'required'
+        ]);
+        // Upload file Method 1
         $uploadedFile = $request->file('product_image');
-   
-      //Display File Name
-      $file_name = $uploadedFile->getClientOriginalName();
-   
-      //Display File Extension
-      $file_extension= $uploadedFile->getClientOriginalExtension();
-  
-      //Display File Size
-      $file_size= $uploadedFile->getSize();
-   
-   
-      //Move Uploaded File
-      $destinationPath = 'storage/images/product_images';
-      
-      $uploadedFileName= $file_name.$file_size.'.'.$file_extension;
-      $uploadedFile->move($destinationPath, $uploadedFileName);
-      //Resize image here
-    // open an image file
-$resizedImg = Image::make('storage/images/product_images/'.$uploadedFileName);
-// now you are able to resize the instance
-$resizedImg->resize(200, 200);
-//open logo image to resize
-$pathToLogoToResize= Image::make('storage/images/product_images/logo.png');
-//Resize the logo image
-$pathToLogoToResize->resize(50, 50);
-//save the logo img
-$pathToLogoToResize->save('storage/images/product_images/logo.jpg');
-// and insert a watermark for example
-$resizedImg->insert('storage/images/product_images/logo.jpg');
-// finally we save the image as a new file
-$resizedImg->save('storage/images/product_images/'.$uploadedFileName);
-    
+
+        //Display File Name
+        $file_name = $uploadedFile->getClientOriginalName();
+
+        //Display File Extension
+        $file_extension = $uploadedFile->getClientOriginalExtension();
+
+        //Display File Size
+        $file_size = $uploadedFile->getSize();
+
+
+        //Move Uploaded File
+        $destinationPath = 'storage/images/product_images';
+
+        $uploadedFileName = $file_name . $file_size . '.' . $file_extension;
+        $uploadedFile->move($destinationPath, $uploadedFileName);
+        //Resize image here
+        // open an image file
+        $resizedImg = Image::make('storage/images/product_images/' . $uploadedFileName);
+        // now you are able to resize the instance
+        $resizedImg->resize(200, 200);
+        //open logo image to resize
+        $pathToLogoToResize = Image::make('storage/images/product_images/logo.png');
+        //Resize the logo image
+        $pathToLogoToResize->resize(50, 50);
+        //save the logo img
+        $pathToLogoToResize->save('storage/images/product_images/logo.jpg');
+        // and insert a watermark for example
+        $resizedImg->insert('storage/images/product_images/logo.jpg');
+        // finally we save the image as a new file
+        $resizedImg->save('storage/images/product_images/' . $uploadedFileName);
+
         //End of upload file 
 
         //creating a new post
         $product = Product::find($id);
-        $product->product_name= $request->input('product_name');
-        $product->product_description= $request->input('product_description');
-        $product->product_price= $request->input('product_price');
-        $product->product_quantity= $request->input('product_quantity');
-        $product->product_location= $request->input('product_location');
-        $product->user_id= $request->input('user_id');
-        $product->category_id= $request->input('category_id');
+        $product->product_name = $request->input('product_name');
+        $product->product_description = $request->input('product_description');
+        $product->product_price = $request->input('product_price');
+        $product->product_quantity = $request->input('product_quantity');
+        $product->product_location = $request->input('product_location');
+        $product->user_id = $request->input('user_id');
+        $product->category_id = $request->input('category_id');
         $product->product_image = $uploadedFileName;
         $product->save();
         Session::flash('success', 'The product has been added successfully');
@@ -196,7 +205,7 @@ $resizedImg->save('storage/images/product_images/'.$uploadedFileName);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function destroy($id)
     {

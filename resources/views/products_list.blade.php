@@ -43,7 +43,7 @@
 										<div class="cbp-caption-activeWrap">
 											<div class="cbp-l-caption-alignCenter">
 												<div class="cbp-l-caption-body">
-													<a href="/img/works/1big.jpg" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="Dashboard<br>by Paul Flavius Nechita">Add to cart</a>
+													<a href="/add-to-cart/{{$product->id}}" class="btn btn-success" >Add to cart</a>
 												</div>
 											</div>
 										</div>

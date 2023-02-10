@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 
 Auth::routes();
 Route::get('/admin/routes', 'HomeController@admin')->middleware('admin');
@@ -33,9 +36,11 @@ Route::get('admin/product/edit/{id}', 'ProductController@edit');
 Route::patch('admin/product/edit/{id}', 'ProductController@update');
 Route::delete('admin/product/delete/{id}', 'ProductController@destroy');
 //Cart controller routes
+Route::get('add-to-cart/{id}', 'CartController@add');
 Route::get('cart/edit/{id}', 'CartController@edit');
-Route::get('cart/index', 'CartController@index');
+Route::get('cart/index', 'CartController@index')->name('cart.index');
 Route::get('cart/show/{id}', 'CartController@show');
+Route::get('item/remove/{id}', 'CartController@remove');
 
 
 
