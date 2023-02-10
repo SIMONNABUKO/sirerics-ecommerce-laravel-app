@@ -55,8 +55,9 @@ class CartController extends Controller
         $product = product::find($id);
         Cart::add($product->id,$product->product_name,1,$product->product_price);
         $cart_content = Cart::content();
+        $total = Cart::subtotal();
+        return view('cart.index', compact('total', 'cart_content')); 
 
-        return view('cart/index')->with('cart_content', $cart_content);
     }
 
     /**
